@@ -1,4 +1,4 @@
-if( not NotPlater ) then return end
+if (not NotPlater) then return end
 
 local CreateFrame = CreateFrame
 local GetTime = GetTime
@@ -9,6 +9,19 @@ local FAILED = FAILED
 local INTERRUPTED = INTERRUPTED
 local slen = string.len
 local ssub = string.sub
+local max = math.max
+local min = math.min
+
+local function UpdateCastBarFill(castBar)
+	if not castBar.fillTexture or not castBar.maxValue or castBar.maxValue <= 0 then return end
+	local barWidth = castBar:GetWidth()
+	if barWidth <= 0 then return end
+	local ratio = castBar.value / castBar.maxValue
+	ratio = max(0, min(1, ratio))
+	local fillWidth = barWidth * ratio
+	castBar.fillTexture:SetWidth(fillWidth < 0.001 and 0.001 or fillWidth)
+	castBar.fillTexture:SetTexCoord(0, ratio, 0, 1)
+end
 
 function NotPlater:SetCastBarNameText(frame, text)
 	local configMaxLength = NotPlater.db.profile.castBar.spellNameText.general.maxLetters
@@ -20,7 +33,7 @@ function NotPlater:SetCastBarNameText(frame, text)
 end
 
 function NotPlater:CastBarOnUpdate(elapsed)
-    local castBarConfig = NotPlater.db.profile.castBar
+	local castBarConfig = NotPlater.db.profile.castBar
 	if not NotPlater:IsTarget(self:GetParent()) then
 		self.casting = nil
 		self.channeling = nil
@@ -34,18 +47,19 @@ function NotPlater:CastBarOnUpdate(elapsed)
 			return
 		end
 		self:SetValue(self.value)
+		UpdateCastBarFill(self)
 
-        if castBarConfig.spellTimeText.general.displayType == "crtmax" then
-            self.spellTimeText:SetFormattedText("%.1f / %.1f", self.value, self.maxValue)
-        elseif castBarConfig.spellTimeText.general.displayType == "crt" then
-            self.spellTimeText:SetFormattedText("%.1f", self.value)
-        elseif castBarConfig.spellTimeText.general.displayType == "percent" then
-            self.spellTimeText:SetFormattedText("%d%%", self.value / self.maxValue * 100)
-        elseif castBarConfig.spellTimeText.general.displayType == "timeleft" then
-            self.spellTimeText:SetFormattedText("%.1f", self.maxValue - self.value)
-        else
-            self.spellTimeText:SetText("")
-        end
+		if castBarConfig.spellTimeText.general.displayType == "crtmax" then
+			self.spellTimeText:SetFormattedText("%.1f / %.1f", self.value, self.maxValue)
+		elseif castBarConfig.spellTimeText.general.displayType == "crt" then
+			self.spellTimeText:SetFormattedText("%.1f", self.value)
+		elseif castBarConfig.spellTimeText.general.displayType == "percent" then
+			self.spellTimeText:SetFormattedText("%d%%", self.value / self.maxValue * 100)
+		elseif castBarConfig.spellTimeText.general.displayType == "timeleft" then
+			self.spellTimeText:SetFormattedText("%.1f", self.maxValue - self.value)
+		else
+			self.spellTimeText:SetText("")
+		end
 	elseif self.channeling then
 		self.value = self.value - elapsed
 		if self.value <= 0 then
@@ -54,18 +68,19 @@ function NotPlater:CastBarOnUpdate(elapsed)
 			return
 		end
 		self:SetValue(self.value)
+		UpdateCastBarFill(self)
 
-        if castBarConfig.spellTimeText.general.displayType == "crtmax" then
-            self.spellTimeText:SetFormattedText("%.1f / %.1f", self.value, self.maxValue)
-        elseif castBarConfig.spellTimeText.general.displayType == "crt" then
-            self.spellTimeText:SetFormattedText("%.1f", self.value)
-        elseif castBarConfig.spellTimeText.general.displayType == "percent" then
-            self.spellTimeText:SetFormattedText("%d%%", self.value / self.maxValue * 100)
-        elseif castBarConfig.spellTimeText.general.displayType == "timeleft" then
-            self.spellTimeText:SetFormattedText("%.1f", self.value - self.maxValue)
-        else
-            self.spellTimeText:SetText("")
-        end
+		if castBarConfig.spellTimeText.general.displayType == "crtmax" then
+			self.spellTimeText:SetFormattedText("%.1f / %.1f", self.value, self.maxValue)
+		elseif castBarConfig.spellTimeText.general.displayType == "crt" then
+			self.spellTimeText:SetFormattedText("%.1f", self.value)
+		elseif castBarConfig.spellTimeText.general.displayType == "percent" then
+			self.spellTimeText:SetFormattedText("%d%%", self.value / self.maxValue * 100)
+		elseif castBarConfig.spellTimeText.general.displayType == "timeleft" then
+			self.spellTimeText:SetFormattedText("%.1f", self.value - self.maxValue)
+		else
+			self.spellTimeText:SetText("")
+		end
 	else
 		self:Hide()
 	end
@@ -110,12 +125,12 @@ function NotPlater:CastBarOnCast(frame, event, unit)
 		frame.castBar.channeling = nil
 
 		frame.castBar:Show()
+		UpdateCastBarFill(frame.castBar)
 	elseif event == "UNIT_SPELLCAST_STOP" or event == "UNIT_SPELLCAST_CHANNEL_STOP" then
 		if not frame.castBar:IsVisible() then
 			frame.castBar:Hide()
 		end
 		if (frame.castBar.casting and event == "UNIT_SPELLCAST_STOP") or (frame.castBar.channeling and event == "UNIT_SPELLCAST_CHANNEL_STOP") then
-
 			frame.castBar:SetValue(frame.castBar.maxValue)
 			if event == "UNIT_SPELLCAST_STOP" then
 				frame.castBar.casting = nil
@@ -177,6 +192,7 @@ function NotPlater:CastBarOnCast(frame, event, unit)
 		frame.castBar.channeling = true
 
 		frame.castBar:Show()
+		UpdateCastBarFill(frame.castBar)
 	elseif event == "UNIT_SPELLCAST_CHANNEL_UPDATE" then
 		if frame.castBar:IsShown() then
 			local name, _, _, _, startTime, endTime = UnitChannelInfo(unit)
@@ -190,6 +206,7 @@ function NotPlater:CastBarOnCast(frame, event, unit)
 			frame.castBar.maxValue = (endTime - startTime) / 1000
 			frame.castBar:SetMinMaxValues(0, frame.castBar.maxValue)
 			frame.castBar:SetValue(frame.castBar.value)
+			UpdateCastBarFill(frame.castBar)
 		end
 	end
 end
@@ -209,7 +226,7 @@ function NotPlater:ScaleCastBar(castFrame, isTarget)
 	local scaleConfig = self.db.profile.target.scale
 	if scaleConfig.castBar then
 		local scalingFactor = isTarget and scaleConfig.scalingFactor or 1
-    	local castBarConfig = self.db.profile.castBar
+		local castBarConfig = self.db.profile.castBar
 		self:ScaleGeneralisedStatusBar(castFrame, scalingFactor, castBarConfig.statusBar)
 		self:ScaleIcon(castFrame.icon, scalingFactor, castBarConfig.spellIcon)
 		self:ScaleGeneralisedText(castFrame.spellNameText, scalingFactor, castBarConfig.spellNameText)
@@ -224,26 +241,32 @@ function NotPlater:CastBarOnShow(frame)
 	NotPlater:CastCheck(frame)
 	-- Tried to make it reappear, but this does not really work since you can't track whether something was interrupted
 	--if castFrame.casting or castFrame.channeling then
-		--if castFrame.lastUpdate then
-			--castFrame.helper = self.CastBarOnUpdate
-			--castFrame:helper(GetTime() - castFrame.lastUpdate)
-		--end
-		--castFrame:Show()
+	--if castFrame.lastUpdate then
+	--castFrame.helper = self.CastBarOnUpdate
+	--castFrame:helper(GetTime() - castFrame.lastUpdate)
+	--end
+	--castFrame:Show()
 	--end
 end
 
 function NotPlater:ConfigureCastBar(frame)
-    local castBarConfig = self.db.profile.castBar
+	local castBarConfig = self.db.profile.castBar
 	local castFrame = frame.castBar
 
-    -- Set background
+	-- Set background
 	self:ConfigureGeneralisedPositionedStatusBar(castFrame, frame.healthBar, castBarConfig.statusBar)
 	castFrame:SetStatusBarColor(self:GetColor(castBarConfig.statusBar.general.color))
 
+	-- Disable built-in StatusBar texture stretching; use fillTexture for clip-style rendering
+	castFrame:SetStatusBarTexture("")
+	castFrame.fillTexture:SetTexture(self.SML:Fetch(self.SML.MediaType.STATUSBAR, castBarConfig.statusBar.general
+	.texture))
+	castFrame.fillTexture:SetVertexColor(self:GetColor(castBarConfig.statusBar.general.color))
+
 	-- Set castbar icon
 	self:ConfigureIcon(castFrame.icon, castFrame, castBarConfig.spellIcon)
-	
-    -- Set text
+
+	-- Set text
 	self:ConfigureGeneralisedText(castFrame.spellTimeText, castFrame, castBarConfig.spellTimeText)
 	self:ConfigureGeneralisedText(castFrame.spellNameText, castFrame, castBarConfig.spellNameText)
 end
@@ -252,17 +275,23 @@ function NotPlater:ConstructCastBar(frame)
 	local castFrame = CreateFrame("StatusBar", "$parentCastBar", frame)
 	castFrame:SetScript("OnUpdate", NotPlater.CastBarOnUpdate)
 
-    -- Create the icon
+	-- Create the icon
 	self:ConstructIcon(castFrame)
 
-    -- Create cast time text and set font
-    castFrame.spellTimeText = castFrame:CreateFontString(nil, "ARTWORK")
+	-- Create cast time text and set font
+	castFrame.spellTimeText = castFrame:CreateFontString(nil, "ARTWORK")
 
-    -- Create cast name text and set font
-    castFrame.spellNameText = castFrame:CreateFontString(nil, "ARTWORK")
+	-- Create cast name text and set font
+	castFrame.spellNameText = castFrame:CreateFontString(nil, "ARTWORK")
 
-    -- Create and set background
+	-- Create and set background and border
 	self:ConstructGeneralisedStatusBar(castFrame)
+
+	-- Fill texture for clip-style progress rendering (full texture, clipped on right by width+texcoord)
+	castFrame.fillTexture = castFrame:CreateTexture(nil, "ARTWORK")
+	castFrame.fillTexture:SetPoint("TOPLEFT", castFrame, "TOPLEFT")
+	castFrame.fillTexture:SetPoint("BOTTOMLEFT", castFrame, "BOTTOMLEFT")
+	castFrame.fillTexture:SetWidth(0.001)
 
 	frame.castBar = castFrame
 	castFrame:Hide()

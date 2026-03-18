@@ -1,4 +1,4 @@
-if( not NotPlater ) then return end
+if (not NotPlater) then return end
 
 local L = NotPlaterLocals
 local DEFAULT_CHAT_FRAME = DEFAULT_CHAT_FRAME
@@ -43,7 +43,8 @@ end
 function NotPlater:SetupFontString(text, config)
 	if not text then return end
 
-	text:SetFont(self.SML:Fetch(self.SML.MediaType.FONT, config.general.name), config.general.size, config.general.border)
+	text:SetFont(self.SML:Fetch(self.SML.MediaType.FONT, config.general.name), config.general.size, config.general
+		.border)
 
 	-- Set color
 	local colorConfig = config.general.color
@@ -54,7 +55,7 @@ function NotPlater:SetupFontString(text, config)
 	if useConfiguredColor and colorConfig then
 		if not text.npOriginalColor then
 			local r, g, b, a = text:GetTextColor()
-			text.npOriginalColor = {r = r, g = g, b = b, a = a}
+			text.npOriginalColor = { r = r, g = g, b = b, a = a }
 		end
 		text:SetTextColor(self:GetColor(colorConfig))
 	elseif text.npOriginalColor then
@@ -64,17 +65,18 @@ function NotPlater:SetupFontString(text, config)
 
 	-- Set shadow
 	if config.shadow.enable then
-		if( not text.npOriginalShadow ) then
+		if (not text.npOriginalShadow) then
 			local x, y = text:GetShadowOffset()
 			local r, g, b, a = text:GetShadowColor()
-			
-			text.npOriginalShadow = {r = r, g = g, b = b, a = a, y = y, x = x}
+
+			text.npOriginalShadow = { r = r, g = g, b = b, a = a, y = y, x = x }
 		end
-		
+
 		text:SetShadowColor(self:GetColor(config.shadow.color))
 		text:SetShadowOffset(config.shadow.xOffset, config.shadow.yOffset)
 	elseif text.npOriginalShadow then -- Restore original shadow
-		text:SetShadowColor(text.npOriginalShadow.r, text.npOriginalShadow.g, text.npOriginalShadow.b, text.npOriginalShadow.a)
+		text:SetShadowColor(text.npOriginalShadow.r, text.npOriginalShadow.g, text.npOriginalShadow.b,
+			text.npOriginalShadow.a)
 		text:SetShadowOffset(text.npOriginalShadow.x, text.npOriginalShadow.y)
 		text.npOriginalShadow = nil
 	end
@@ -138,7 +140,8 @@ function NotPlater:ScaleGeneralisedText(text, scalingFactor, config, anchorFrame
 		return
 	end
 
-	text:SetFont(self.SML:Fetch(self.SML.MediaType.FONT, config.general.name), config.general.size * scalingFactor, config.general.border)
+	text:SetFont(self.SML:Fetch(self.SML.MediaType.FONT, config.general.name), config.general.size * scalingFactor,
+		config.general.border)
 
 	local position = config.position
 	local targetAnchor = anchorFrame or text.npAnchorFrame
@@ -151,7 +154,7 @@ function NotPlater:ScaleGeneralisedText(text, scalingFactor, config, anchorFrame
 end
 
 function NotPlater:ConfigureGeneralisedText(text, anchorFrame, config)
-    text:ClearAllPoints()
+	text:ClearAllPoints()
 	local resolvedAnchor = anchorFrame
 	if config.position and config.position.anchorTarget then
 		resolvedAnchor = self:GetAnchorTargetFrame(anchorFrame, config.position.anchorTarget, anchorFrame)
@@ -159,7 +162,8 @@ function NotPlater:ConfigureGeneralisedText(text, anchorFrame, config)
 			resolvedAnchor = anchorFrame
 		end
 	end
-	text:SetPoint(config.position.anchor, resolvedAnchor, config.position.anchor, config.position.xOffset, config.position.yOffset)
+	text:SetPoint(config.position.anchor, resolvedAnchor, config.position.anchor, config.position.xOffset,
+		config.position.yOffset)
 	text.npAnchorFrame = resolvedAnchor
 	self:SetupFontString(text, config)
 	if config.general.enable then
@@ -197,7 +201,8 @@ function NotPlater:ConfigureGeneralisedPositionedStatusBar(bar, anchorFrame, con
 			resolvedAnchor = anchorFrame
 		end
 	end
-	bar:SetPoint(self.oppositeAnchors[config.position.anchor], resolvedAnchor, config.position.anchor, config.position.xOffset, config.position.yOffset)
+	bar:SetPoint(self.oppositeAnchors[config.position.anchor], resolvedAnchor, config.position.anchor,
+		config.position.xOffset, config.position.yOffset)
 	bar.npAnchorFrame = resolvedAnchor
 	self:ConfigureGeneralisedStatusBar(bar, config)
 end
@@ -265,8 +270,8 @@ function NotPlater:ConfigureGeneralisedIcon(iconFrame, anchorFrame, config)
 		return
 	end
 
-    iconFrame:ClearAllPoints()
-    self:SetSize(iconFrame, config.size.width, config.size.height)
+	iconFrame:ClearAllPoints()
+	self:SetSize(iconFrame, config.size.width, config.size.height)
 	local resolvedAnchor = anchorFrame
 	if config.position and config.position.anchorTarget then
 		resolvedAnchor = self:GetAnchorTargetFrame(anchorFrame, config.position.anchorTarget, anchorFrame)
@@ -274,13 +279,14 @@ function NotPlater:ConfigureGeneralisedIcon(iconFrame, anchorFrame, config)
 			resolvedAnchor = anchorFrame
 		end
 	end
-    iconFrame:SetPoint(self.oppositeAnchors[config.position.anchor], resolvedAnchor, config.position.anchor, config.position.xOffset, config.position.yOffset)
+	iconFrame:SetPoint(self.oppositeAnchors[config.position.anchor], resolvedAnchor, config.position.anchor,
+		config.position.xOffset, config.position.yOffset)
 	iconFrame.npAnchorFrame = resolvedAnchor
 	local enabled = config.general.enable
 	if enabled == nil then
 		enabled = true
 	end
-    iconFrame:SetAlpha(enabled and config.general.opacity or 0)
+	iconFrame:SetAlpha(enabled and config.general.opacity or 0)
 end
 
 function NotPlater:ConfigureGeneralisedStatusBar(bar, config)
@@ -296,23 +302,43 @@ function NotPlater:ConfigureGeneralisedStatusBar(bar, config)
 		bar.background:Hide()
 	end
 
-	-- Set border
+	-- Set border (now uses a single texture)
 	if config.border.enable then
-		self:ConfigureFullBorder(bar.border, bar, config.border)
+		self:ConfigureTextureBorder(bar.border, bar, config.border)
 		bar.border:Show()
 	else
 		bar.border:Hide()
 	end
+end
 
+function NotPlater:CreateTextureBorder(parent)
+	local border = CreateFrame("Frame", nil, parent)
+	border:SetPoint("TOPLEFT", parent, "TOPLEFT", -2, 2)
+	border:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", 2.1, -2.1)
+	border:SetFrameLevel(parent:GetFrameLevel() + 1)
+	return border
+end
+
+function NotPlater:ConfigureTextureBorder(border, parent, config)
+	local color = { self:GetColor(config.color) }
+	local thickness = config.thickness or 1
+	border.backdrop = {
+		edgeFile = "interface\\addons\\NotPlater-3.3.5\\images\\targetBorders\\border-thick-1-s16-o0.tga",
+		tileEdge = false,
+		edgeSize = thickness,
+		insets = { left = thickness, right = thickness, top = thickness, bottom = thickness },
+	}
+	border:SetBackdrop(border.backdrop)
+	border:SetBackdropBorderColor(color[1], color[2], color[3], color[4] or 1)
 end
 
 function NotPlater:ConstructGeneralisedStatusBar(bar)
-    -- Background
-    bar.background = bar:CreateTexture(nil, "BORDER")
+	-- Background
+	bar.background = bar:CreateTexture(nil, "BORDER")
 	bar.background:SetAllPoints(bar)
 
-	-- Border
-	bar.border = self:CreateFullBorder(bar)
+	-- Border (now uses a single texture)
+	bar.border = self:CreateTextureBorder(bar)
 
 	bar.scaleAnim = CreateAnimationGroup(bar)
 	bar.scaleAnim.width = bar.scaleAnim:CreateAnimation("Width")
@@ -327,13 +353,13 @@ function NotPlater:SetSize(frame, width, height)
 end
 
 function NotPlater:PrintHelp()
-    self:Print(L["Usage:"])
-    self:Print(L["/np help - Show this message"])
-    self:Print(L["/np config - Toggle the config window"])
-    self:Print(L["/np whatsnew - Show the latest release notes"])
-    self:Print(L["/np simulator - Toggle the simulator frame"])
-    self:Print(L["/np minimap - Toggle the minimap icon"])
-    self:Print(L["/np share - Send a profile link to your party or raid chat"])
+	self:Print(L["Usage:"])
+	self:Print(L["/np help - Show this message"])
+	self:Print(L["/np config - Toggle the config window"])
+	self:Print(L["/np whatsnew - Show the latest release notes"])
+	self:Print(L["/np simulator - Toggle the simulator frame"])
+	self:Print(L["/np minimap - Toggle the minimap icon"])
+	self:Print(L["/np share - Send a profile link to your party or raid chat"])
 end
 
 function NotPlater:Print(msg)

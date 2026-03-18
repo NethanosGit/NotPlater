@@ -41,7 +41,8 @@ local function GetOrderedFrameRegions(frame)
 	if IS_WRATH_CLIENT then
 		return frame:GetRegions()
 	end
-	local healthBorder, castBorder, spellIcon, highlightTexture, nameText, levelText, bossIcon, raidIcon = frame:GetRegions()
+	local healthBorder, castBorder, spellIcon, highlightTexture, nameText, levelText, bossIcon, raidIcon = frame
+	:GetRegions()
 	return nil, healthBorder, castBorder, nil, spellIcon, highlightTexture, nameText, levelText, bossIcon, raidIcon
 end
 
@@ -62,7 +63,7 @@ function NotPlater:GetFrameTexts(frame)
 	local nameText = frame.defaultNameText or frame.nameText
 	local levelText = frame.levelText
 	if not nameText or not levelText then
-		local regions = {GetOrderedFrameRegions(frame)}
+		local regions = { GetOrderedFrameRegions(frame) }
 		if not nameText then
 			nameText = regions[7]
 		end
@@ -83,7 +84,7 @@ function NotPlater:UpdateMouseoverNameText(frame, isMouseover)
 	if isMouseover then
 		if not nameText.npMouseoverColor then
 			local r, g, b, a = nameText:GetTextColor()
-			nameText.npMouseoverColor = {r, g, b, a}
+			nameText.npMouseoverColor = { r, g, b, a }
 		end
 		nameText:SetTextColor(self:GetColor(nameConfig.color))
 	else
@@ -183,7 +184,8 @@ function NotPlater:UpdateNameplateClassColorCVar()
 	if not GetCVar or not SetCVar or not self.isWrathClient then
 		return
 	end
-	local shouldEnable = self.db.profile.healthBar.statusBar.general.useClassColors or self.db.profile.nameText.general.useClassColor
+	local shouldEnable = self.db.profile.healthBar.statusBar.general.useClassColors or
+	self.db.profile.nameText.general.useClassColor
 	if shouldEnable then
 		local current = GetCVar(NAMEPLATE_CLASS_COLOR_CVAR)
 		if current ~= "1" then
@@ -203,7 +205,7 @@ function NotPlater:OnInitialize()
 	end
 	self:SetTrackedMatchUnits()
 	self.SML = LibStub:GetLibrary("LibSharedMedia-3.0")
-	
+
 	if self.Auras then
 		if self.Auras.Init then
 			self.Auras:Init()
@@ -215,7 +217,7 @@ function NotPlater:OnInitialize()
 
 	self:PARTY_MEMBERS_CHANGED()
 	self:RAID_ROSTER_UPDATE()
-	
+
 	self:RegisterEvent("PARTY_MEMBERS_CHANGED")
 	self:RegisterEvent("RAID_ROSTER_UPDATE")
 	self:RegisterEvent("PLAYER_TARGET_CHANGED")
@@ -231,10 +233,10 @@ function NotPlater:IsTarget(frame)
 		end
 		return false
 	end
-    local targetExists = UnitExists('target')
-    if not targetExists then
-        return false
-    end
+	local targetExists = UnitExists('target')
+	if not targetExists then
+		return false
+	end
 
 	local nameText = frame and frame.defaultNameText or select(1, self:GetFrameTexts(frame))
 	local targetName = UnitName('target')
@@ -243,7 +245,8 @@ function NotPlater:IsTarget(frame)
 end
 
 function NotPlater:PrepareFrame(frame)
-	local threatGlow, healthBorder, castBorder, castNoStop, spellIcon, highlightTexture, nameText, levelText, bossIcon, raidIcon, eliteIcon = GetOrderedFrameRegions(frame)
+	local threatGlow, healthBorder, castBorder, castNoStop, spellIcon, highlightTexture, nameText, levelText, bossIcon, raidIcon, eliteIcon =
+	GetOrderedFrameRegions(frame)
 	local health, cast = frame:GetChildren()
 
 	-- Hooks and creation (only once that way settings can be applied while frame is visible)
@@ -288,7 +291,7 @@ function NotPlater:PrepareFrame(frame)
 
 		-- Hide old healthbar
 		health:Hide()
-    
+
 		if not frame.isTemplatePreview then
 			self:HookScript(frame, "OnShow", function(self)
 				local unitName = self.defaultNameText:GetText()
@@ -354,6 +357,9 @@ function NotPlater:PrepareFrame(frame)
 					NotPlater:SetTargetTargetText(self)
 					NotPlater:RangeCheck(self, self.targetCheckElapsed)
 					NotPlater:ApplyFilters(self)
+					if NotPlater:IsTarget(self) and NotPlater.db.profile.castBar.statusBar.general.enable then
+						NotPlater:CastCheck(self)
+					end
 					self.targetCheckElapsed = 0
 				end
 				local isMouseOver = IsFrameMouseOver(self)
@@ -399,7 +405,7 @@ function NotPlater:PrepareFrame(frame)
 			end)
 		end
 	end
-	
+
 	-- Configure everything
 	self:ConfigureThreatComponents(frame)
 	self:ConfigureHealthBar(frame, health)
@@ -421,14 +427,14 @@ function NotPlater:PrepareFrame(frame)
 end
 
 function NotPlater:HookFrames(...)
-	for i=1, select("#", ...) do
+	for i = 1, select("#", ...) do
 		local frame = select(i, ...)
 		local region = frame:GetRegions()
 		if not frames[frame] and not frame:GetName() and region and region:GetObjectType() == "Texture" then
 			local texture = region:GetTexture()
 			if texture == WRATH_NAMEPLATE_TEXTURE or texture == LEGACY_NAMEPLATE_TEXTURE then
-			frames[frame] = true
-			self:PrepareFrame(frame)
+				frames[frame] = true
+				self:PrepareFrame(frame)
 			end
 		end
 	end
@@ -476,9 +482,8 @@ end
 
 local numChildren = -1
 NotPlater.frame:SetScript("OnUpdate", function(self, elapsed)
-	if(WorldFrame:GetNumChildren() ~= numChildren) then
+	if (WorldFrame:GetNumChildren() ~= numChildren) then
 		numChildren = WorldFrame:GetNumChildren()
 		NotPlater:HookFrames(WorldFrame:GetChildren())
 	end
 end)
-

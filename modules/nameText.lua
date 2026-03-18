@@ -1,4 +1,4 @@
-if( not NotPlater ) then return end
+if (not NotPlater) then return end
 
 function NotPlater:GetActiveNameTextConfig(frame)
 	if frame and frame.filterNameTextConfig then

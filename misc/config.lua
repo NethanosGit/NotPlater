@@ -40,7 +40,7 @@ local function GetProfileSharingModule()
 end
 
 local function BuildAssetPath(...)
-	local segments = {...}
+	local segments = { ... }
 	for index = 1, #segments do
 		local segment = tostring(segments[index] or "")
 		segment = segment:gsub("^\\+", "")
@@ -65,7 +65,8 @@ NotPlater.oppositeAnchors = {
 }
 
 local TEXTURE_BASE_PATH = BuildAssetPath("images", "statusbarTextures") .. "\\"
-local textures = {"NotPlater Default", "NotPlater Background", "NotPlater HealthBar", "Flat", "BarFill", "Banto", "Smooth", "Perl", "Glaze", "Charcoal", "Otravi", "Striped", "LiteStep"}
+local textures = { "NotPlater Default", "NotPlater Background", "NotPlater HealthBar", "Flat", "BarFill", "Banto",
+	"Smooth", "Perl", "Glaze", "Charcoal", "Aurora", "Otravi", "Striped", "LiteStep" }
 
 local CATEGORY_ICON_SIZE = 18
 local CATEGORY_ICONS = {
@@ -102,17 +103,17 @@ NotPlater.defaultHighlightTexture = BuildAssetPath("images", "targetBorders", "s
 NotPlater.targetIndicators = {
 	["NONE"] = {
 		path = BuildAssetPath("images", "targetBorders", "UI-Achievement-WoodBorder-Corner"),
-		coords = {{.9, 1, .9, 1}, {.9, 1, .9, 1}, {.9, 1, .9, 1}, {.9, 1, .9, 1}}, --texcoords, support 4 or 8 coords method
+		coords = { { .9, 1, .9, 1 }, { .9, 1, .9, 1 }, { .9, 1, .9, 1 }, { .9, 1, .9, 1 } }, --texcoords, support 4 or 8 coords method
 		desaturated = false,
 		width = 10,
 		height = 10,
 		x = 1,
 		y = 1,
 	},
-	
+
 	["Magneto"] = {
 		path = BuildAssetPath("images", "targetBorders", "RelicIconFrame"),
-		coords = {{0, .5, 0, .5}, {0, .5, .5, 1}, {.5, 1, .5, 1}, {.5, 1, 0, .5}},
+		coords = { { 0, .5, 0, .5 }, { 0, .5, .5, 1 }, { .5, 1, .5, 1 }, { .5, 1, 0, .5 } },
 		desaturated = false,
 		width = 8,
 		height = 10,
@@ -120,10 +121,10 @@ NotPlater.targetIndicators = {
 		x = 2,
 		y = 2,
 	},
-	
+
 	["Gray Bold"] = {
 		path = BuildAssetPath("images", "targetBorders", "UI-Icon-QuestBorder"),
-		coords = {{0, .5, 0, .5}, {0, .5, .5, 1}, {.5, 1, .5, 1}, {.5, 1, 0, .5}},
+		coords = { { 0, .5, 0, .5 }, { 0, .5, .5, 1 }, { .5, 1, .5, 1 }, { .5, 1, 0, .5 } },
 		desaturated = true,
 		width = 10,
 		height = 10,
@@ -131,10 +132,10 @@ NotPlater.targetIndicators = {
 		x = 2,
 		y = 2,
 	},
-	
+
 	["Pins"] = {
 		path = BuildAssetPath("images", "targetBorders", "UI-ItemSockets"),
-		coords = {{145/256, 161/256, 3/256, 19/256}, {145/256, 161/256, 19/256, 3/256}, {161/256, 145/256, 19/256, 3/256}, {161/256, 145/256, 3/256, 19/256}},
+		coords = { { 145 / 256, 161 / 256, 3 / 256, 19 / 256 }, { 145 / 256, 161 / 256, 19 / 256, 3 / 256 }, { 161 / 256, 145 / 256, 19 / 256, 3 / 256 }, { 161 / 256, 145 / 256, 3 / 256, 19 / 256 } },
 		desaturated = 1,
 		width = 4,
 		height = 4,
@@ -146,10 +147,10 @@ NotPlater.targetIndicators = {
 	["Silver"] = {
 		path = BuildAssetPath("images", "targetBorders", "PETBATTLEHUD"),
 		coords = {
-			{336/512, 356/512, 454/512, 474/512}, 
-			{336/512, 356/512, 474/512, 495/512}, 
-			{356/512, 377/512, 474/512, 495/512}, 
-			{356/512, 377/512, 454/512, 474/512}
+			{ 336 / 512, 356 / 512, 454 / 512, 474 / 512 },
+			{ 336 / 512, 356 / 512, 474 / 512, 495 / 512 },
+			{ 356 / 512, 377 / 512, 474 / 512, 495 / 512 },
+			{ 356 / 512, 377 / 512, 454 / 512, 474 / 512 }
 		}, --848 889 454 495
 		desaturated = false,
 		width = 6,
@@ -158,12 +159,12 @@ NotPlater.targetIndicators = {
 		x = 1,
 		y = 1,
 	},
-	
+
 	["Ornament"] = {
 		path = BuildAssetPath("images", "targetBorders", "PETJOURNAL"),
 		coords = {
-			{124/512, 161/512, 71/512, 99/512}, 
-			{119/512, 156/512, 29/512, 57/512}
+			{ 124 / 512, 161 / 512, 71 / 512, 99 / 512 },
+			{ 119 / 512, 156 / 512, 29 / 512, 57 / 512 }
 		},
 		desaturated = false,
 		width = 18,
@@ -174,12 +175,12 @@ NotPlater.targetIndicators = {
 		x = 14,
 		y = 0,
 	},
-	
+
 	["Golden"] = {
 		path = BuildAssetPath("images", "targetBorders", "Artifacts"),
 		coords = {
-			{137/512, (137+29)/512, 408/512, 466/512},
-			{(137+30)/512, 195/512, 408/512, 466/512},
+			{ 137 / 512,    (137 + 29) / 512, 408 / 512, 466 / 512 },
+			{ (137 + 30) / 512, 195 / 512, 408 / 512, 466 / 512 },
 		},
 		desaturated = false,
 		width = 8,
@@ -194,8 +195,8 @@ NotPlater.targetIndicators = {
 	["Ornament Gray"] = {
 		path = BuildAssetPath("images", "targetBorders", "challenges-besttime-bg"),
 		coords = {
-			{89/512, 123/512, 0, 1},
-			{123/512, 89/512, 0, 1},
+			{ 89 / 512, 123 / 512, 0, 1 },
+			{ 123 / 512, 89 / 512, 0, 1 },
 		},
 		desaturated = false,
 		width = 8,
@@ -206,14 +207,14 @@ NotPlater.targetIndicators = {
 		autoScale = true,
 		x = 0,
 		y = 0,
-		color = {r = 1, g = 0, b = 0},
+		color = { r = 1, g = 0, b = 0 },
 	},
 
 	["Epic"] = {
 		path = BuildAssetPath("images", "targetBorders", "WowUI_Horizontal_Frame"),
 		coords = {
-			{30/256, 40/256, 15/64, 49/64},
-			{40/256, 30/256, 15/64, 49/64}, 
+			{ 30 / 256, 40 / 256, 15 / 64, 49 / 64 },
+			{ 40 / 256, 30 / 256, 15 / 64, 49 / 64 },
 		},
 		desaturated = false,
 		width = 6,
@@ -225,72 +226,72 @@ NotPlater.targetIndicators = {
 		y = 0,
 		blend = "ADD",
 	},
-	
+
 	["Arrow"] = {
-        path = BuildAssetPath("images", "targetBorders", "arrow_single_right_64"),
-        coords = {
-            {0, 1, 0, 1}, 
-            {1, 0, 0, 1}
-        },
-        desaturated = false,
-        width = 20,
-        height = 20,
-        x = 28,
-        y = 0,
+		path = BuildAssetPath("images", "targetBorders", "arrow_single_right_64"),
+		coords = {
+			{ 0, 1, 0, 1 },
+			{ 1, 0, 0, 1 }
+		},
+		desaturated = false,
+		width = 20,
+		height = 20,
+		x = 28,
+		y = 0,
 		wscale = 1.5,
 		hscale = 2,
 		autoScale = true,
-        blend = "ADD",
-        color = {r = 1, g = 1, b = 1},
-    },
-	
+		blend = "ADD",
+		color = { r = 1, g = 1, b = 1 },
+	},
+
 	["Arrow Thin"] = {
-        path = BuildAssetPath("images", "targetBorders", "arrow_thin_right_64"),
-        coords = {
-            {0, 1, 0, 1}, 
-            {1, 0, 0, 1}
-        },
-        desaturated = false,
-        width = 20,
-        height = 20,
-        x = 28,
-        y = 0,
+		path = BuildAssetPath("images", "targetBorders", "arrow_thin_right_64"),
+		coords = {
+			{ 0, 1, 0, 1 },
+			{ 1, 0, 0, 1 }
+		},
+		desaturated = false,
+		width = 20,
+		height = 20,
+		x = 28,
+		y = 0,
 		wscale = 1.5,
 		hscale = 2,
 		autoScale = true,
-        blend = "ADD",
-        color = {r = 1, g = 1, b = 1},
-    },
-	
+		blend = "ADD",
+		color = { r = 1, g = 1, b = 1 },
+	},
+
 	["Double Arrows"] = {
-        path = BuildAssetPath("images", "targetBorders", "arrow_double_right_64"),
-        coords = {
-            {0, 1, 0, 1}, 
-            {1, 0, 0, 1}
-        },
-        desaturated = false,
-        width = 20,
-        height = 20,
-        x = 28,
-        y = 0,
+		path = BuildAssetPath("images", "targetBorders", "arrow_double_right_64"),
+		coords = {
+			{ 0, 1, 0, 1 },
+			{ 1, 0, 0, 1 }
+		},
+		desaturated = false,
+		width = 20,
+		height = 20,
+		x = 28,
+		y = 0,
 		wscale = 1.5,
 		hscale = 2,
 		autoScale = true,
-        blend = "ADD",
-        color = {r = 1, g = 1, b = 1},
-    },
+		blend = "ADD",
+		color = { r = 1, g = 1, b = 1 },
+	},
 }
 
 local HIGHLIGHT_BASE_PATH = BuildAssetPath("images", "targetBorders") .. "\\"
 NotPlater.targetHighlights = {
-	[HIGHLIGHT_BASE_PATH .. "selection_indicator1"] =  "Highlight 1",
-	[HIGHLIGHT_BASE_PATH .. "selection_indicator2"] =  "Highlight 2",
-	[HIGHLIGHT_BASE_PATH .. "selection_indicator3"] =  "Highlight 3",
-	[HIGHLIGHT_BASE_PATH .. "selection_indicator4"] =  "Highlight 4",
-	[HIGHLIGHT_BASE_PATH .. "selection_indicator5"] =  "Highlight 5",
-	[HIGHLIGHT_BASE_PATH .. "selection_indicator6"] =  "Highlight 6",
-	[HIGHLIGHT_BASE_PATH .. "selection_indicator7"] =  "Highlight 7",
-	[HIGHLIGHT_BASE_PATH .. "selection_indicator8"] =  "Highlight 8"
+	[HIGHLIGHT_BASE_PATH .. "selection_indicator1"] = "Highlight 1",
+	[HIGHLIGHT_BASE_PATH .. "selection_indicator2"] = "Highlight 2",
+	[HIGHLIGHT_BASE_PATH .. "selection_indicator3"] = "Highlight 3",
+	[HIGHLIGHT_BASE_PATH .. "selection_indicator4"] = "Highlight 4",
+	[HIGHLIGHT_BASE_PATH .. "selection_indicator5"] = "Highlight 5",
+	[HIGHLIGHT_BASE_PATH .. "selection_indicator6"] = "Highlight 6",
+	[HIGHLIGHT_BASE_PATH .. "selection_indicator7"] = "Highlight 7",
+	[HIGHLIGHT_BASE_PATH .. "selection_indicator8"] = "Highlight 8"
 }
 
 
@@ -391,7 +392,7 @@ local function BuffsSet(info, ...)
 	if not db or not key then return end
 	local valueCount = select("#", ...)
 	if valueCount > 1 then
-		db[key] = {...}
+		db[key] = { ... }
 	else
 		db[key] = select(1, ...)
 	end
@@ -410,7 +411,7 @@ local function BuffsGet(info)
 end
 
 local function BuildBuffInfo(...)
-	local info = {"buffs"}
+	local info = { "buffs" }
 	for i = 1, select("#", ...) do
 		info[#info + 1] = select(i, ...)
 	end
@@ -425,7 +426,7 @@ local function BuffsSetValue(value, ...)
 	BuffsSet(BuildBuffInfo(...), value)
 end
 
-local trackedUnitOrder = {"target", "focus", "mouseover", "arena"}
+local trackedUnitOrder = { "target", "focus", "mouseover", "arena" }
 
 local function GetTrackedUnitOption(info)
 	local unit = info[#info]
@@ -448,7 +449,8 @@ local trackedUnitArgs = {
 	description = {
 		order = 0,
 		type = "description",
-		name = L["Choose which unit IDs NotPlater polls with UnitAura. Only these units provide exact aura timers when combat log tracking is disabled."],
+		name = L
+		["Choose which unit IDs NotPlater polls with UnitAura. Only these units provide exact aura timers when combat log tracking is disabled."],
 		fontSize = NotPlater.isWrathClient and "medium" or nil,
 	},
 }
@@ -645,7 +647,8 @@ local function IsAuraTimerDisabled()
 end
 
 local function IsAutomaticTracking()
-	return NotPlater.db and NotPlater.db.profile and NotPlater.db.profile.buffs and NotPlater.db.profile.buffs.tracking.mode == "AUTOMATIC"
+	return NotPlater.db and NotPlater.db.profile and NotPlater.db.profile.buffs and
+	NotPlater.db.profile.buffs.tracking.mode == "AUTOMATIC"
 end
 
 local function ShowAuraPrompt(listKey, inputType)
@@ -657,7 +660,7 @@ local function ShowAuraPrompt(listKey, inputType)
 	if dialog then
 		if not NotPlater.isWrathClient then
 			dialog.text = _G[dialog:GetName() .. "Text"]
-		 	dialog.editBox = _G[dialog:GetName() .. "EditBox"]
+			dialog.editBox = _G[dialog:GetName() .. "EditBox"]
 		end
 		local text = inputType == "ID" and L["Enter a spell ID"] or L["Enter a spell name"]
 		dialog.text:SetText(text)
@@ -669,97 +672,97 @@ local function ShowAuraPrompt(listKey, inputType)
 end
 
 local function EnsureAuraListDialog()
-    if NotPlater and NotPlater.auraListDialog then
-        return NotPlater.auraListDialog
-    end
+	if NotPlater and NotPlater.auraListDialog then
+		return NotPlater.auraListDialog
+	end
 	local isWrathClient = NotPlater and NotPlater.isWrathClient
-    local frame = CreateFrame("Frame", "NotPlaterAuraListDialog", UIParent)
-    NotPlater:SetSize(frame, 420, 320)
-    frame:SetFrameStrata("FULLSCREEN_DIALOG")
-    frame:SetFrameLevel(100)
-    frame:SetPoint("CENTER")
-    frame:EnableMouse(true)
-    frame:SetMovable(true)
-    frame:RegisterForDrag("LeftButton")
-    frame:SetScript("OnDragStart", function(self)
-        self:StartMoving()
-    end)
-    frame:SetScript("OnDragStop", function(self)
-        self:StopMovingOrSizing()
-    end)
+	local frame = CreateFrame("Frame", "NotPlaterAuraListDialog", UIParent)
+	NotPlater:SetSize(frame, 420, 320)
+	frame:SetFrameStrata("FULLSCREEN_DIALOG")
+	frame:SetFrameLevel(100)
+	frame:SetPoint("CENTER")
+	frame:EnableMouse(true)
+	frame:SetMovable(true)
+	frame:RegisterForDrag("LeftButton")
+	frame:SetScript("OnDragStart", function(self)
+		self:StartMoving()
+	end)
+	frame:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+	end)
 
-    -- Background layer
+	-- Background layer
 	if isWrathClient then
-    local titleBG = frame:CreateTexture("NotPlaterAuraListDialogTitleBG", "BACKGROUND")
-    titleBG:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Title-Background")
-    titleBG:SetPoint("TOPLEFT", 8, -7)
-    titleBG:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT", -8, -24)
+		local titleBG = frame:CreateTexture("NotPlaterAuraListDialogTitleBG", "BACKGROUND")
+		titleBG:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Title-Background")
+		titleBG:SetPoint("TOPLEFT", 8, -7)
+		titleBG:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT", -8, -24)
 
-    local dialogBG = frame:CreateTexture("NotPlaterAuraListDialogDialogBG", "BACKGROUND")
-    dialogBG:SetTexture("Interface\\PaperDollInfoFrame\\UI-Character-CharacterTab-L1")
-    dialogBG:SetPoint("TOPLEFT", 8, -24)
-    dialogBG:SetPoint("BOTTOMRIGHT", -6, 8)
-    dialogBG:SetTexCoord(0.255, 1, 0.29, 1)
+		local dialogBG = frame:CreateTexture("NotPlaterAuraListDialogDialogBG", "BACKGROUND")
+		dialogBG:SetTexture("Interface\\PaperDollInfoFrame\\UI-Character-CharacterTab-L1")
+		dialogBG:SetPoint("TOPLEFT", 8, -24)
+		dialogBG:SetPoint("BOTTOMRIGHT", -6, 8)
+		dialogBG:SetTexCoord(0.255, 1, 0.29, 1)
 
-    -- Overlay layer for borders
-    local topLeft = frame:CreateTexture(nil, "OVERLAY")
-    topLeft:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
+		-- Overlay layer for borders
+		local topLeft = frame:CreateTexture(nil, "OVERLAY")
+		topLeft:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
 		NotPlater:SetSize(topLeft, 64, 64)
-    topLeft:SetPoint("TOPLEFT")
-    topLeft:SetTexCoord(0.501953125, 0.625, 0, 1)
+		topLeft:SetPoint("TOPLEFT")
+		topLeft:SetTexCoord(0.501953125, 0.625, 0, 1)
 
-    local topRight = frame:CreateTexture(nil, "OVERLAY")
-    topRight:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
+		local topRight = frame:CreateTexture(nil, "OVERLAY")
+		topRight:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
 		NotPlater:SetSize(topRight, 64, 64)
-    topRight:SetPoint("TOPRIGHT")
-    topRight:SetTexCoord(0.625, 0.75, 0, 1)
+		topRight:SetPoint("TOPRIGHT")
+		topRight:SetTexCoord(0.625, 0.75, 0, 1)
 
-    local top = frame:CreateTexture(nil, "OVERLAY")
-    top:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
-    top:SetPoint("TOPLEFT", topLeft, "TOPRIGHT")
-    top:SetPoint("TOPRIGHT", topRight, "TOPLEFT")
-    top:SetHeight(64)
-    top:SetTexCoord(0.25, 0.369140625, 0, 1)
+		local top = frame:CreateTexture(nil, "OVERLAY")
+		top:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
+		top:SetPoint("TOPLEFT", topLeft, "TOPRIGHT")
+		top:SetPoint("TOPRIGHT", topRight, "TOPLEFT")
+		top:SetHeight(64)
+		top:SetTexCoord(0.25, 0.369140625, 0, 1)
 
-    local bottomLeft = frame:CreateTexture(nil, "OVERLAY")
-    bottomLeft:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
+		local bottomLeft = frame:CreateTexture(nil, "OVERLAY")
+		bottomLeft:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
 		NotPlater:SetSize(bottomLeft, 64, 64)
-    bottomLeft:SetPoint("BOTTOMLEFT")
-    bottomLeft:SetTexCoord(0.751953125, 0.875, 0, 1)
+		bottomLeft:SetPoint("BOTTOMLEFT")
+		bottomLeft:SetTexCoord(0.751953125, 0.875, 0, 1)
 
-    local bottomRight = frame:CreateTexture(nil, "OVERLAY")
-    bottomRight:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
+		local bottomRight = frame:CreateTexture(nil, "OVERLAY")
+		bottomRight:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
 		NotPlater:SetSize(bottomRight, 64, 64)
-    bottomRight:SetPoint("BOTTOMRIGHT")
-    bottomRight:SetTexCoord(0.875, 1, 0, 1)
+		bottomRight:SetPoint("BOTTOMRIGHT")
+		bottomRight:SetTexCoord(0.875, 1, 0, 1)
 
-    local bottom = frame:CreateTexture(nil, "OVERLAY")
-    bottom:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
-    bottom:SetPoint("BOTTOMLEFT", bottomLeft, "BOTTOMRIGHT")
-    bottom:SetPoint("BOTTOMRIGHT", bottomRight, "BOTTOMLEFT")
-    bottom:SetHeight(64)
-    bottom:SetTexCoord(0.376953125, 0.498046875, 0, 1)
+		local bottom = frame:CreateTexture(nil, "OVERLAY")
+		bottom:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
+		bottom:SetPoint("BOTTOMLEFT", bottomLeft, "BOTTOMRIGHT")
+		bottom:SetPoint("BOTTOMRIGHT", bottomRight, "BOTTOMLEFT")
+		bottom:SetHeight(64)
+		bottom:SetTexCoord(0.376953125, 0.498046875, 0, 1)
 
-    local left = frame:CreateTexture(nil, "OVERLAY")
-    left:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
-    left:SetPoint("TOPLEFT", topLeft, "BOTTOMLEFT")
-    left:SetPoint("BOTTOMLEFT", bottomLeft, "TOPLEFT")
-    left:SetWidth(64)
-    left:SetTexCoord(0.001953125, 0.125, 0, 1)
+		local left = frame:CreateTexture(nil, "OVERLAY")
+		left:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
+		left:SetPoint("TOPLEFT", topLeft, "BOTTOMLEFT")
+		left:SetPoint("BOTTOMLEFT", bottomLeft, "TOPLEFT")
+		left:SetWidth(64)
+		left:SetTexCoord(0.001953125, 0.125, 0, 1)
 
-    local right = frame:CreateTexture(nil, "OVERLAY")
-    right:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
-    right:SetPoint("TOPRIGHT", topRight, "BOTTOMRIGHT")
-    right:SetPoint("BOTTOMRIGHT", bottomRight, "TOPRIGHT")
-    right:SetWidth(64)
-    right:SetTexCoord(0.1171875, 0.2421875, 0, 1)
+		local right = frame:CreateTexture(nil, "OVERLAY")
+		right:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-Border")
+		right:SetPoint("TOPRIGHT", topRight, "BOTTOMRIGHT")
+		right:SetPoint("BOTTOMRIGHT", bottomRight, "TOPRIGHT")
+		right:SetWidth(64)
+		right:SetTexCoord(0.1171875, 0.2421875, 0, 1)
 
-    -- Close button
-    local closeButton = CreateFrame("Button", "NotPlaterAuraListDialogClose", frame, "UIPanelCloseButton")
-    closeButton:SetPoint("TOPRIGHT", 2, 1)
-    closeButton:SetScript("OnClick", function()
-        frame:Hide()
-    end)
+		-- Close button
+		local closeButton = CreateFrame("Button", "NotPlaterAuraListDialogClose", frame, "UIPanelCloseButton")
+		closeButton:SetPoint("TOPRIGHT", 2, 1)
+		closeButton:SetScript("OnClick", function()
+			frame:Hide()
+		end)
 	else
 		frame:SetBackdrop({
 			bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
@@ -772,65 +775,65 @@ local function EnsureAuraListDialog()
 		frame:SetBackdropColor(0, 0, 0, 1)
 	end
 
-    -- Title
-    local title = frame:CreateFontString("NotPlaterAuraListDialogTitle", "OVERLAY", "GameFontNormal")
-    title:SetPoint("TOPLEFT", 12, -8)
-    title:SetPoint("TOPRIGHT", -32, -8)
-    title:SetText(L["Export/Import IDs"])
-    frame.Title = title  -- for compatibility
+	-- Title
+	local title = frame:CreateFontString("NotPlaterAuraListDialogTitle", "OVERLAY", "GameFontNormal")
+	title:SetPoint("TOPLEFT", 12, -8)
+	title:SetPoint("TOPRIGHT", -32, -8)
+	title:SetText(L["Export/Import IDs"])
+	frame.Title = title -- for compatibility
 
-    local hint = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    hint:SetPoint("TOP", title, "BOTTOM", 0, -6)
-    hint:SetText(L["Paste spell IDs separated by commas."])
+	local hint = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	hint:SetPoint("TOP", title, "BOTTOM", 0, -6)
+	hint:SetText(L["Paste spell IDs separated by commas."])
 
-    local scrollFrame = CreateFrame("ScrollFrame", "NotPlaterAuraListScrollFrame", frame, "UIPanelScrollFrameTemplate")
-    scrollFrame:SetPoint("TOPLEFT", 16, -50)
-    scrollFrame:SetPoint("BOTTOMRIGHT", -30, 52)
+	local scrollFrame = CreateFrame("ScrollFrame", "NotPlaterAuraListScrollFrame", frame, "UIPanelScrollFrameTemplate")
+	scrollFrame:SetPoint("TOPLEFT", 16, -50)
+	scrollFrame:SetPoint("BOTTOMRIGHT", -30, 52)
 
-    local editBox = CreateFrame("EditBox", nil, scrollFrame)
-    editBox:SetMultiLine(true)
-    editBox:SetAutoFocus(false)
-    editBox:SetFontObject("GameFontHighlightSmall")
-    editBox:SetWidth(360)
-    editBox:SetHeight(140)
-    editBox:SetScript("OnEscapePressed", function(self)
-        self:ClearFocus()
-        self:GetParent():GetParent():Hide()
-    end)
-    editBox:SetScript("OnEnterPressed", function(self)
-        self:Insert("\n")
-    end)
-    scrollFrame:SetScrollChild(editBox)
+	local editBox = CreateFrame("EditBox", nil, scrollFrame)
+	editBox:SetMultiLine(true)
+	editBox:SetAutoFocus(false)
+	editBox:SetFontObject("GameFontHighlightSmall")
+	editBox:SetWidth(360)
+	editBox:SetHeight(140)
+	editBox:SetScript("OnEscapePressed", function(self)
+		self:ClearFocus()
+		self:GetParent():GetParent():Hide()
+	end)
+	editBox:SetScript("OnEnterPressed", function(self)
+		self:Insert("\n")
+	end)
+	scrollFrame:SetScrollChild(editBox)
 
-    local okButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-    okButton:SetText(ACCEPT)
-    NotPlater:SetSize(okButton, 110, 22)
-    okButton:SetPoint("BOTTOMLEFT", 16, 16)
+	local okButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+	okButton:SetText(ACCEPT)
+	NotPlater:SetSize(okButton, 110, 22)
+	okButton:SetPoint("BOTTOMLEFT", 16, 16)
 
-    local cancelButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-    cancelButton:SetText(CANCEL)
-    NotPlater:SetSize(cancelButton, 110, 22)
-    cancelButton:SetPoint("BOTTOMRIGHT", -16, 16)
+	local cancelButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+	cancelButton:SetText(CANCEL)
+	NotPlater:SetSize(cancelButton, 110, 22)
+	cancelButton:SetPoint("BOTTOMRIGHT", -16, 16)
 
-    okButton:SetScript("OnClick", function()
-        if frame.listKey then
-            ImportAuraListIDs(frame.listKey, editBox:GetText())
-        end
-        frame:Hide()
-    end)
-    cancelButton:SetScript("OnClick", function()
-        frame:Hide()
-    end)
+	okButton:SetScript("OnClick", function()
+		if frame.listKey then
+			ImportAuraListIDs(frame.listKey, editBox:GetText())
+		end
+		frame:Hide()
+	end)
+	cancelButton:SetScript("OnClick", function()
+		frame:Hide()
+	end)
 
-    frame:SetScript("OnShow", function(self)
-        self:SetFrameStrata("TOOLTIP")
-        self:SetFrameLevel(200)
-        self:Raise()
-    end)
-    frame.editBox = editBox
-    NotPlater.auraListDialog = frame
-    frame:Hide()
-    return frame
+	frame:SetScript("OnShow", function(self)
+		self:SetFrameStrata("TOOLTIP")
+		self:SetFrameLevel(200)
+		self:Raise()
+	end)
+	frame.editBox = editBox
+	NotPlater.auraListDialog = frame
+	frame:Hide()
+	return frame
 end
 
 local function ShowAuraListPrompt(listKey)
@@ -894,7 +897,7 @@ else
 			this:Raise()
 		end,
 		OnAccept = function()
-			local editBox = this:GetParent().editBox 
+			local editBox = this:GetParent().editBox
 			local text = editBox:GetText()
 			if auraPopupContext then
 				AddAuraToList(auraPopupContext.listKey, text)
@@ -972,77 +975,77 @@ NotPlater.ConfigPrototypes.Buffs = NotPlater.ConfigPrototypes:BuildBuffsArgs({
 local function GetAnchors(frame)
 	local x, y = frame:GetCenter()
 	if not x or not y then return "CENTER" end
-	local hHalf = (x > UIParent:GetWidth()*2/3) and "RIGHT" or (x < UIParent:GetWidth()/3) and "LEFT" or ""
-	local vHalf = (y > UIParent:GetHeight()/2) and "TOP" or "BOTTOM"
-	return vHalf..hHalf, frame, (vHalf == "TOP" and "BOTTOM" or "TOP")..hHalf
+	local hHalf = (x > UIParent:GetWidth() * 2 / 3) and "RIGHT" or (x < UIParent:GetWidth() / 3) and "LEFT" or ""
+	local vHalf = (y > UIParent:GetHeight() / 2) and "TOP" or "BOTTOM"
+	return vHalf .. hHalf, frame, (vHalf == "TOP" and "BOTTOM" or "TOP") .. hHalf
 end
 
 local function DrawMinimapTooltip()
-    local tooltip = GameTooltip
-    tooltip:ClearLines()
-    tooltip:AddDoubleLine("NotPlater", NotPlater.revision or "2.0.0")
-    tooltip:AddLine(" ")
-    tooltip:AddLine(L["|cffeda55fLeft-Click|r to toggle the config window"], 0.2, 1, 0.2)
-    tooltip:AddLine(L["|cffeda55fRight-Click|r to toggle the simulator frame"], 0.2, 1, 0.2)
-    tooltip:AddLine(L["|cffeda55fMiddle-Click|r to toggle the minimap icon"], 0.2, 1, 0.2);
-    tooltip:Show()
+	local tooltip = GameTooltip
+	tooltip:ClearLines()
+	tooltip:AddDoubleLine("NotPlater", NotPlater.revision or "2.0.0")
+	tooltip:AddLine(" ")
+	tooltip:AddLine(L["|cffeda55fLeft-Click|r to toggle the config window"], 0.2, 1, 0.2)
+	tooltip:AddLine(L["|cffeda55fRight-Click|r to toggle the simulator frame"], 0.2, 1, 0.2)
+	tooltip:AddLine(L["|cffeda55fMiddle-Click|r to toggle the minimap icon"], 0.2, 1, 0.2);
+	tooltip:Show()
 end
 
 local function ToggleMinimap()
-    NotPlaterDB.minimap.hide = not NotPlaterDB.minimap.hide
-    if NotPlaterDB.minimap.hide then
-        LDBIcon:Hide("NotPlater");
-        NotPlater:Print(L["Use /np minimap to show the minimap icon again"])
-    else
-        LDBIcon:Show("NotPlater");
-    end
+	NotPlaterDB.minimap.hide = not NotPlaterDB.minimap.hide
+	if NotPlaterDB.minimap.hide then
+		LDBIcon:Hide("NotPlater");
+		NotPlater:Print(L["Use /np minimap to show the minimap icon again"])
+	else
+		LDBIcon:Show("NotPlater");
+	end
 end
 
 local tooltipUpdateFrame = CreateFrame("Frame")
 local Broker_NotPlater = LDB:NewDataObject("NotPlater", {
-    type = "launcher",
-    text = "NotPlater",
-    icon = BuildAssetPath("images", "logo"),
-    OnClick = function(self, button)
-		if(button == "LeftButton") then
+	type = "launcher",
+	text = "NotPlater",
+	icon = BuildAssetPath("images", "logo"),
+	OnClick = function(self, button)
+		if (button == "LeftButton") then
 			Config:ToggleConfig()
-        elseif(button == "RightButton") then
+		elseif (button == "RightButton") then
 			NotPlater:ToggleSimulatorFrame()
-        else -- "MiddleButton"
-            ToggleMinimap()
-        end
-        DrawMinimapTooltip()
-    end,
-    OnEnter = function(self)
-        local elapsed = 0
-        local delay = 1
-        tooltipUpdateFrame:SetScript("OnUpdate", function(self, elap)
-            elapsed = elapsed + elap
-            if(elapsed > delay) then
-                elapsed = 0
-                DrawMinimapTooltip()
-            end
-        end);
-        GameTooltip:SetOwner(self, "ANCHOR_NONE")
-        GameTooltip:SetPoint(GetAnchors(self))
-        DrawMinimapTooltip()
-    end,
-    OnLeave = function(self)
-        tooltipUpdateFrame:SetScript("OnUpdate", nil)
-        GameTooltip:Hide()
-    end,
+		else -- "MiddleButton"
+			ToggleMinimap()
+		end
+		DrawMinimapTooltip()
+	end,
+	OnEnter = function(self)
+		local elapsed = 0
+		local delay = 1
+		tooltipUpdateFrame:SetScript("OnUpdate", function(self, elap)
+			elapsed = elapsed + elap
+			if (elapsed > delay) then
+				elapsed = 0
+				DrawMinimapTooltip()
+			end
+		end);
+		GameTooltip:SetOwner(self, "ANCHOR_NONE")
+		GameTooltip:SetPoint(GetAnchors(self))
+		DrawMinimapTooltip()
+	end,
+	OnLeave = function(self)
+		tooltipUpdateFrame:SetScript("OnUpdate", nil)
+		GameTooltip:Hide()
+	end,
 })
 
 function Config:OnInitialize()
 	config = LibStub("AceConfig-3.0")
 	dialog = LibStub("AceConfigDialog-3.0")
-	
+
 	SML = LibStub:GetLibrary("LibSharedMedia-3.0")
 	for _, statusBarTexture in ipairs(textures) do
 		SML:Register(SML.MediaType.STATUSBAR, statusBarTexture, TEXTURE_BASE_PATH .. statusBarTexture)
 	end
 
-	NotPlaterDB.minimap = NotPlaterDB.minimap or {hide = false}
+	NotPlaterDB.minimap = NotPlaterDB.minimap or { hide = false }
 	LDBIcon:Register("NotPlater", Broker_NotPlater, NotPlaterDB.minimap)
 end
 
@@ -1054,7 +1057,7 @@ local function SetValue(...)
 		tinsert(args, args[k][v])
 	end
 	local lastArgName = select(1, ...)[numArgs]
-	local values = {select(2, ...)}
+	local values = { select(2, ...) }
 	if #values > 1 then
 		args[numArgs][lastArgName] = values
 	else
@@ -1079,7 +1082,8 @@ end
 
 local filterEditingIndex
 
-local CLASS_TOKENS = {"WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "DEATHKNIGHT", "SHAMAN", "MAGE", "WARLOCK", "DRUID"}
+local CLASS_TOKENS = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "DEATHKNIGHT", "SHAMAN", "MAGE", "WARLOCK",
+	"DRUID" }
 
 local function DeepCopyTable(source, seen)
 	if type(source) ~= "table" then
@@ -1130,7 +1134,7 @@ local function BuildFilterDefaults(name)
 		criteria = {
 			faction = {
 				enable = false,
-				values = {Alliance = false, Horde = false, Neutral = false, MyFaction = false},
+				values = { Alliance = false, Horde = false, Neutral = false, MyFaction = false },
 			},
 			class = {
 				enable = false,
@@ -1184,7 +1188,7 @@ local function BuildFilterDefaults(name)
 			},
 			healthColor = {
 				enable = false,
-				values = {hostile = false, neutral = false, friendlyNpc = false, friendlyPlayer = false, tapped = false},
+				values = { hostile = false, neutral = false, friendlyNpc = false, friendlyPlayer = false, tapped = false },
 			},
 			npcType = {
 				enable = false,
@@ -1199,12 +1203,12 @@ local function BuildFilterDefaults(name)
 				},
 			},
 		},
-	effects = {
-		hide = hideComponents,
-		nameText = {
-			config = nameTextConfig,
+		effects = {
+			hide = hideComponents,
+			nameText = {
+				config = nameTextConfig,
+			},
 		},
-	},
 	}
 end
 
@@ -1370,7 +1374,7 @@ local function BuildPresetFilter(name, presetKey)
 		for key in pairs(criteria.npcType.values) do
 			criteria.npcType.values[key] = true
 		end
-		SetFilterHideComponents(filter, {"healthBar", "healthText"}, true)
+		SetFilterHideComponents(filter, { "healthBar", "healthText" }, true)
 		hide.npcIcons = false
 		ApplyNpcNameStyle(filter)
 		return filter
@@ -1414,7 +1418,8 @@ local function BuildPresetFilter(name, presetKey)
 			criteria.level.max = math.max(1, playerLevel - 5)
 		end
 		SetFilterHideComponents(filter, {
-			"aurasDebuffs", "aurasBuffs", "threatPercentBar", "threatPercentText", "threatDifferentialText", "threatNumberText",
+			"aurasDebuffs", "aurasBuffs", "threatPercentBar", "threatPercentText", "threatDifferentialText",
+			"threatNumberText",
 		}, true)
 		return filter
 	end
@@ -1851,7 +1856,7 @@ local function SetNameTextConfigValue(info, ...)
 	end
 	local valueCount = select("#", ...)
 	if valueCount > 1 then
-		target[info[#info]] = {...}
+		target[info[#info]] = { ... }
 	else
 		target[info[#info]] = select(1, ...)
 	end
@@ -1861,7 +1866,7 @@ end
 local function LoadOptions()
 	options = {}
 	options.type = "group"
-		options.name = "NotPlater"
+	options.name = "NotPlater"
 	options.args = {}
 	local whatsNewModule = NotPlater:GetModule("WhatsNew", true)
 	if whatsNewModule and whatsNewModule.GetConfigOptions then
@@ -1885,7 +1890,7 @@ local function LoadOptions()
 				order = 1,
 				type = "group",
 				name = L["Nameplate Colors"],
-				args = 	NotPlater.ConfigPrototypes.ThreatNameplateColors
+				args = NotPlater.ConfigPrototypes.ThreatNameplateColors
 			},
 			percent = {
 				order = 2,
@@ -1897,7 +1902,7 @@ local function LoadOptions()
 						order = 0,
 						type = "group",
 						name = L["Status Bar"],
-						args = 	NotPlater.ConfigPrototypes.ThreatPercentStatusBar,
+						args = NotPlater.ConfigPrototypes.ThreatPercentStatusBar,
 					},
 					text = {
 						order = 1,
@@ -1917,7 +1922,7 @@ local function LoadOptions()
 				order = 4,
 				type = "group",
 				name = L["Number Text"],
-				args = 	NotPlater.ConfigPrototypes.ThreatNumberText,
+				args = NotPlater.ConfigPrototypes.ThreatNumberText,
 			}
 		}
 	}
@@ -1950,7 +1955,7 @@ local function LoadOptions()
 		get = GetValue,
 		set = SetValue,
 		childGroups = "tab",
-		args =  {
+		args = {
 			statusBar = {
 				order = 0,
 				type = "group",
@@ -2051,7 +2056,8 @@ local function LoadOptions()
 	}
 	local classOrder = 1
 	for _, token in ipairs(CLASS_TOKENS) do
-		local label = (LOCALIZED_CLASS_NAMES_MALE and LOCALIZED_CLASS_NAMES_MALE[token]) or (LOCALIZED_CLASS_NAMES_FEMALE and LOCALIZED_CLASS_NAMES_FEMALE[token])
+		local label = (LOCALIZED_CLASS_NAMES_MALE and LOCALIZED_CLASS_NAMES_MALE[token]) or
+		(LOCALIZED_CLASS_NAMES_FEMALE and LOCALIZED_CLASS_NAMES_FEMALE[token])
 		if label then
 			local classToken = token
 			classCriteriaArgs[classToken] = {
@@ -2910,7 +2916,7 @@ local function LoadOptions()
 										order = 1,
 										type = "select",
 										name = L["Match"],
-										values = {EXACT = L["Exact"], CONTAINS = L["Contains"]},
+										values = { EXACT = L["Exact"], CONTAINS = L["Contains"] },
 										get = GetCriteriaValue,
 										set = SetCriteriaValue,
 										disabled = function()
@@ -2949,7 +2955,7 @@ local function LoadOptions()
 										order = 1,
 										type = "select",
 										name = L["Match"],
-										values = {EXACT = L["Exact"], CONTAINS = L["Contains"]},
+										values = { EXACT = L["Exact"], CONTAINS = L["Contains"] },
 										get = GetCriteriaValue,
 										set = SetCriteriaValue,
 										disabled = function()
@@ -3010,7 +3016,7 @@ local function LoadOptions()
 										order = 1,
 										type = "select",
 										name = L["Match"],
-										values = {EXACT = L["Exact"], CONTAINS = L["Contains"]},
+										values = { EXACT = L["Exact"], CONTAINS = L["Contains"] },
 										get = GetCriteriaValue,
 										set = SetCriteriaValue,
 										disabled = function()
@@ -3073,12 +3079,14 @@ local function LoadOptions()
 										name = L["Hostile"],
 										get = function()
 											local filter = GetEditingFilter()
-											return filter and filter.criteria.healthColor.values and filter.criteria.healthColor.values.hostile
+											return filter and filter.criteria.healthColor.values and
+											filter.criteria.healthColor.values.hostile
 										end,
 										set = function(_, value)
 											local filter = GetEditingFilter()
 											if filter then
-												filter.criteria.healthColor.values = filter.criteria.healthColor.values or {}
+												filter.criteria.healthColor.values = filter.criteria.healthColor.values or
+												{}
 												filter.criteria.healthColor.values.hostile = value
 												NotPlater:ApplyFiltersAll()
 											end
@@ -3094,12 +3102,14 @@ local function LoadOptions()
 										name = L["Neutral"],
 										get = function()
 											local filter = GetEditingFilter()
-											return filter and filter.criteria.healthColor.values and filter.criteria.healthColor.values.neutral
+											return filter and filter.criteria.healthColor.values and
+											filter.criteria.healthColor.values.neutral
 										end,
 										set = function(_, value)
 											local filter = GetEditingFilter()
 											if filter then
-												filter.criteria.healthColor.values = filter.criteria.healthColor.values or {}
+												filter.criteria.healthColor.values = filter.criteria.healthColor.values or
+												{}
 												filter.criteria.healthColor.values.neutral = value
 												NotPlater:ApplyFiltersAll()
 											end
@@ -3115,12 +3125,14 @@ local function LoadOptions()
 										name = L["Friendly NPC"],
 										get = function()
 											local filter = GetEditingFilter()
-											return filter and filter.criteria.healthColor.values and filter.criteria.healthColor.values.friendlyNpc
+											return filter and filter.criteria.healthColor.values and
+											filter.criteria.healthColor.values.friendlyNpc
 										end,
 										set = function(_, value)
 											local filter = GetEditingFilter()
 											if filter then
-												filter.criteria.healthColor.values = filter.criteria.healthColor.values or {}
+												filter.criteria.healthColor.values = filter.criteria.healthColor.values or
+												{}
 												filter.criteria.healthColor.values.friendlyNpc = value
 												NotPlater:ApplyFiltersAll()
 											end
@@ -3136,12 +3148,14 @@ local function LoadOptions()
 										name = L["Friendly Player"],
 										get = function()
 											local filter = GetEditingFilter()
-											return filter and filter.criteria.healthColor.values and filter.criteria.healthColor.values.friendlyPlayer
+											return filter and filter.criteria.healthColor.values and
+											filter.criteria.healthColor.values.friendlyPlayer
 										end,
 										set = function(_, value)
 											local filter = GetEditingFilter()
 											if filter then
-												filter.criteria.healthColor.values = filter.criteria.healthColor.values or {}
+												filter.criteria.healthColor.values = filter.criteria.healthColor.values or
+												{}
 												filter.criteria.healthColor.values.friendlyPlayer = value
 												NotPlater:ApplyFiltersAll()
 											end
@@ -3157,12 +3171,14 @@ local function LoadOptions()
 										name = L["Tapped"],
 										get = function()
 											local filter = GetEditingFilter()
-											return filter and filter.criteria.healthColor.values and filter.criteria.healthColor.values.tapped
+											return filter and filter.criteria.healthColor.values and
+											filter.criteria.healthColor.values.tapped
 										end,
 										set = function(_, value)
 											local filter = GetEditingFilter()
 											if filter then
-												filter.criteria.healthColor.values = filter.criteria.healthColor.values or {}
+												filter.criteria.healthColor.values = filter.criteria.healthColor.values or
+												{}
 												filter.criteria.healthColor.values.tapped = value
 												NotPlater:ApplyFiltersAll()
 											end
@@ -3267,8 +3283,8 @@ local function LoadOptions()
 	}
 	options.args.stacking = {
 		order = 10,
-        type = "group",
-        childGroups = "tab",
+		type = "group",
+		childGroups = "tab",
 		name = WithCategoryIcon("stacking", L["Stacking"]),
 		get = GetValue,
 		set = SetValue,
@@ -3491,8 +3507,8 @@ function Config:ToggleConfig()
 end
 
 function Config:OpenConfig()
-	if( not registered ) then
-		if( not options ) then
+	if (not registered) then
+		if (not options) then
 			NotPlater.ConfigPrototypes:LoadConfigPrototypes()
 			LoadOptions()
 		end
@@ -3521,19 +3537,20 @@ function Config:OpenConfig()
 
 	local frame = dialog.OpenFrames["NotPlater"]
 	if frame and frame.SetStatusText then
-		local revision = NotPlater.revision or ""
-		
-		local cTitle   = "|cffffcc00"  -- gold
-		local cVersion = "|cffaaaaaa"  -- light gray
-		local cAuthor  = "|cff00ff96"  -- green-ish
-		local cHint    = "|cff808080"  -- dark gray
-		
-		local icon = "|T" .. BuildAssetPath("images", "logo") .. ":24:24:0:0|t "
-		
-		local linkColor = "|cff5daeff"
-		local link = "|Hurl:https://github.com/RichSteini/NotPlater|h" .. linkColor .. "https://github.com/RichSteini/NotPlater|r|h"
+		local revision  = NotPlater.revision or ""
 
-		local text = icon ..
+		local cTitle    = "|cffffcc00" -- gold
+		local cVersion  = "|cffaaaaaa" -- light gray
+		local cAuthor   = "|cff00ff96" -- green-ish
+		local cHint     = "|cff808080" -- dark gray
+
+		local icon      = "|T" .. BuildAssetPath("images", "logo") .. ":24:24:0:0|t "
+
+		local linkColor = "|cff5daeff"
+		local link      = "|Hurl:https://github.com/RichSteini/NotPlater|h" ..
+		linkColor .. "https://github.com/RichSteini/NotPlater|r|h"
+
+		local text      = icon ..
 			cTitle .. "NotPlater|r " ..
 			(revision ~= "" and (cVersion .. revision .. "|r  ") or "") ..
 			cAuthor .. "by RichSteini|r  " ..
@@ -3563,16 +3580,16 @@ SLASH_NOTPLATER2 = "/np"
 SlashCmdList["NOTPLATER"] = function(input)
 	local args, msg = {}, nil
 
-    for v in sgmatch(input, "%S+") do
-        if not msg then
+	for v in sgmatch(input, "%S+") do
+		if not msg then
 			msg = v
-        else
+		else
 			tinsert(args, v)
-        end
-    end
+		end
+	end
 
-    if msg == "minimap" then
-        ToggleMinimap()
+	if msg == "minimap" then
+		ToggleMinimap()
 	elseif msg == "simulator" then
 		NotPlater:ToggleSimulatorFrame()
 	elseif msg == "whatsnew" then
@@ -3586,7 +3603,7 @@ SlashCmdList["NOTPLATER"] = function(input)
 			NotPlater:Print(L["Release notes are not available."])
 		end
 	elseif msg == "help" then
-        NotPlater:PrintHelp()
+		NotPlater:PrintHelp()
 	elseif msg == "share" then
 		local module = GetProfileSharingModule()
 		if not module then
@@ -3596,7 +3613,7 @@ SlashCmdList["NOTPLATER"] = function(input)
 		module:InsertShareLink()
 	else
 		Config:ToggleConfig()
-    end
+	end
 end
 
 --[[

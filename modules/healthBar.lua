@@ -1,4 +1,4 @@
-if( not NotPlater ) then return end
+if (not NotPlater) then return end
 
 function NotPlater:HealthOnValueChanged(oldHealthBar, value)
 	local _, maxValue = oldHealthBar:GetMinMaxValues()
@@ -8,7 +8,7 @@ function NotPlater:HealthOnValueChanged(oldHealthBar, value)
 	if not value or not maxValue or maxValue <= 0 then
 		return
 	end
-	
+
 	-- Clamp value to valid range to prevent health bar showing incorrect values
 	value = math.max(0, math.min(value, maxValue))
 
@@ -17,7 +17,7 @@ function NotPlater:HealthOnValueChanged(oldHealthBar, value)
 	if not healthFrame then
 		return
 	end
-	
+
 	-- Set min/max values before setting the current value to avoid race conditions
 	healthFrame:SetMinMaxValues(0, maxValue)
 	healthFrame:SetValue(value)
@@ -50,19 +50,21 @@ function NotPlater:HealthOnValueChanged(oldHealthBar, value)
 		end
 
 		if healthBarConfig.healthText.general.displayType == "minmax" then
-			if( maxValue == 100 ) then
+			if (maxValue == 100) then
 				healthFrame.healthText:SetText(percentText .. " / " .. maxPercentText)
 			else
 				healthFrame.healthText:SetText(FormatNumber(value) .. " / " .. FormatNumber(maxValue))
 			end
 		elseif healthBarConfig.healthText.general.displayType == "minmaxpercent" then
 			local minmaxText
-			if( maxValue == 100 ) then
+			if (maxValue == 100) then
 				minmaxText = percentText .. " / " .. maxPercentText
 			else
 				minmaxText = FormatNumber(value) .. " / " .. FormatNumber(maxValue)
 			end
 			healthFrame.healthText:SetText(minmaxText .. " (" .. percentText .. ")")
+		elseif healthBarConfig.healthText.general.displayType == "current" then
+			healthFrame.healthText:SetText(FormatNumber(value))
 		elseif healthBarConfig.healthText.general.displayType == "both" then
 			healthFrame.healthText:SetFormattedText("%s (%s)", FormatNumber(value), percentText)
 		elseif healthBarConfig.healthText.general.displayType == "percent" then
@@ -78,7 +80,7 @@ end
 function NotPlater:ScaleHealthBar(healthFrame, isTarget)
 	local scaleConfig = self.db.profile.target.scale
 	if scaleConfig.healthBar then
-    	local healthBarConfig = self.db.profile.healthBar
+		local healthBarConfig = self.db.profile.healthBar
 		local scalingFactor = isTarget and scaleConfig.scalingFactor or 1
 		self:ScaleGeneralisedStatusBar(healthFrame, scalingFactor, healthBarConfig.statusBar)
 		self:ScaleGeneralisedText(healthFrame.healthText, scalingFactor, healthBarConfig.healthText)
@@ -89,7 +91,7 @@ function NotPlater:HealthBarOnShow(oldHealthBar)
 	local r, g, b = oldHealthBar:GetStatusBarColor()
 	local parent = oldHealthBar:GetParent()
 	if parent then
-		parent.defaultHealthColor = {r, g, b}
+		parent.defaultHealthColor = { r, g, b }
 		if self.GetNameplateColorKeyFromRGB then
 			parent.defaultHealthColorKey = self:GetNameplateColorKeyFromRGB(r, g, b)
 		else
@@ -118,7 +120,8 @@ function NotPlater:ConfigureHealthBar(frame, oldHealthBar)
 	-- Set Mouseover highlight
 	frame.highlightTexture:SetAlpha(self.db.profile.target.mouseoverHighlight.opacity)
 	if self.db.profile.target.mouseoverHighlight.enable then
-		frame.highlightTexture:SetTexture(self.SML:Fetch(self.SML.MediaType.STATUSBAR, healthBarConfig.statusBar.general.texture))
+		frame.highlightTexture:SetTexture(self.SML:Fetch(self.SML.MediaType.STATUSBAR,
+			healthBarConfig.statusBar.general.texture))
 	else
 		frame.highlightTexture:SetTexture(0, 0, 0, 0)
 	end
@@ -133,8 +136,8 @@ function NotPlater:ConstructHealthBar(frame, oldHealthBar)
 	local healthFrame = CreateFrame("StatusBar", "$parentHealthBar", frame)
 	self:ConstructGeneralisedStatusBar(healthFrame)
 
-    -- Create health text
-    healthFrame.healthText = healthFrame:CreateFontString(nil, "ARTWORK")
+	-- Create health text
+	healthFrame.healthText = healthFrame:CreateFontString(nil, "ARTWORK")
 
 	-- Create Mouseover highlight
 	frame.highlightTexture:SetBlendMode("ADD")
